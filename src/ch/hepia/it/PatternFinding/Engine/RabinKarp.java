@@ -1,8 +1,13 @@
 package ch.hepia.it.PatternFinding.Engine;
 
+import ch.hepia.it.PatternFinding.Utils.Maths;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static ch.hepia.it.PatternFinding.Utils.Maths.mod;
 
 public class RabinKarp implements PatternFinder {
 	private static Random rnd = new Random();
@@ -28,18 +33,22 @@ public class RabinKarp implements PatternFinder {
 		long ti = 0;
 
 		for (int i = 0; i < m; i++) {
-			ti += (long) Math.pow(b, m - i - 1) * text.charAt(i);
-			p += (long) Math.pow(b, m - i - 1) * pattern.charAt(i);
+			BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q));
+			ti += mod(BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * text.charAt(i), q);
+			ti = mod(ti, q);
+			p += mod(BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * pattern.charAt(i), q);
+			p = mod(p, q);
 		}
 
 		for (int s = 0; s <= t - m; s++) {
 			if (s != 0) {
-				ti = b * (ti - (long) (Math.pow(b, m - 1) * text.charAt(s - 1))) + text.charAt(s + m - 1);
+				ti = b * mod(ti - BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - 1), BigInteger.valueOf(q)).intValue() * text.charAt(s - 1), q) + text.charAt(s + m - 1);
+				ti = mod(ti, q);
 			}
 			if (ti < 0) {
 				System.err.println("PROBLEM " + ti + "\t" + s);
 			}
-			if ((p % q) == (ti % q)) {
+			if (mod(p, q) == mod(ti, q)) {
 				if (text.substring(s, s + m).equals(pattern)) {
 					occurences.add(s);
 				}
