@@ -19,7 +19,7 @@ public class RabinKarp implements PatternFinder {
 	public List<Integer> getOccurences (String text, String pattern) {
 		List<Integer> occurences = new ArrayList<>();
 		//b should be next prime bigger than size of alphabet
-		int b = 101;
+		int b = 128;
 		int m = pattern.length();
 		int t = text.length();
 
@@ -29,7 +29,7 @@ public class RabinKarp implements PatternFinder {
 
 		for (int i = 0; i < m; i++) {
 			ti += (long) Math.pow(b, m - i - 1) * text.charAt(i);
-			p += (long) Math.pow(b, m - i) * pattern.charAt(i);
+			p += (long) Math.pow(b, m - i - 1) * pattern.charAt(i);
 		}
 
 		for (int s = 0; s <= t - m; s++) {
