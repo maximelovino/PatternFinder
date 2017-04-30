@@ -9,6 +9,7 @@ import java.util.List;
 public class TestFile {
 	public static void main (String[] args) {
 		String text = "ababababacaabababaca";
+		text = "abababacababacabababaca";
 		String pattern = "ababaca";
 
 
