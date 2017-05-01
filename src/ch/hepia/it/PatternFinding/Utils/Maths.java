@@ -6,4 +6,9 @@ public abstract class Maths {
 		long result = x % y;
 		return result < 0 ? result + y : result;
 	}
+
+	public static int mod (int x, int y) {
+		int result = x % y;
+		return result < 0 ? result + y : result;
+	}
 }

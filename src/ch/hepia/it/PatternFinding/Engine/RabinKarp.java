@@ -29,24 +29,13 @@ public class RabinKarp implements PatternFinder {
 		int t = text.length();
 
 		int q = findCoprimeTo(t, m);
-		long p = 0;
-		long ti = 0;
-
-		for (int i = 0; i < m; i++) {
-			BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q));
-			ti += mod(BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * text.charAt(i), q);
-			ti = mod(ti, q);
-			p += mod(BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * pattern.charAt(i), q);
-			p = mod(p, q);
-		}
+		int p = hash(pattern, q, b, m);
+		int ti = hash(text, q, b, m);
 
 		for (int s = 0; s <= t - m; s++) {
 			if (s != 0) {
 				ti = b * mod(ti - BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - 1), BigInteger.valueOf(q)).intValue() * text.charAt(s - 1), q) + text.charAt(s + m - 1);
 				ti = mod(ti, q);
-			}
-			if (ti < 0) {
-				System.err.println("PROBLEM " + ti + "\t" + s);
 			}
 			if (mod(p, q) == mod(ti, q)) {
 				if (text.substring(s, s + m).equals(pattern)) {
@@ -56,6 +45,15 @@ public class RabinKarp implements PatternFinder {
 		}
 
 		return occurences;
+	}
+
+	private int hash (String text, int q, int b, int m) {
+		int hash = 0;
+		for (int i = 0; i < m; i++) {
+			hash += mod(BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * text.charAt(i), q);
+			hash = mod(hash, q);
+		}
+		return hash;
 	}
 
 	private int findCoprimeTo (int m, int t) {

@@ -13,6 +13,10 @@ public class TestFile {
 		String pattern = "ababaca";
 
 
+		text = "212121212131212 wwwwww bwwwawwww bonsbonsbonsbonsbonsabonsbonsbons 1111abt1111ab1111abt1111ab111 12121111abt1111ab1212 12w wwwab12 w1111abww1111abwww1111abt1111abwwww bonswbonsbonswbonsbonsbons 12ww1212www121212wwww";
+		pattern = "1212";
+
+
 		System.out.println(naiveAlgo(text, pattern));
 		System.out.println("====================");
 		System.out.println(RabinKarp.getInstance().getOccurences(text, pattern));

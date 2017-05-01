@@ -1,4 +1,9 @@
+import ch.hepia.it.PatternFinding.Engine.FiniteStateMachineFinder;
+import ch.hepia.it.PatternFinding.Engine.RabinKarp;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
@@ -7,10 +12,12 @@ public class Main {
 		// Ne pas modifier cette partie
 		String fileName = null;
 		String motif = null;
+		String data = "";
 		int algo = 0;
 		switch (args.length) {
 			case 3:
 				fileName = args[2];
+				data = new String(Files.readAllBytes(Paths.get(fileName)));
 			case 2:
 				algo = Integer.parseInt(args[1]);
 				motif = args[0];
@@ -30,8 +37,9 @@ public class Main {
 				} else {
 					// Afficher le nombre d'occurences du motif
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
-					System.out.println("13"); // nombre d'occurences du motifs
-					System.out.println("0 3 46 67 109"); //liste des positions du motif
+					//System.out.println("13"); // nombre d'occurences du motifs
+					//System.out.println("0 3 46 67 109"); //liste des positions du motif
+					System.out.println(RabinKarp.getInstance().getOccurences(data, motif));
 				}
 				break;
 			case 2: //Automate fini
@@ -51,8 +59,9 @@ public class Main {
 				} else {
 					// Afficher le nombre d'occurences du motif
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
-					System.out.println("13"); // nombre d'occurences du motifs
-					System.out.println("0 3 46 67 109"); //liste des positions du motif
+					//System.out.println("13"); // nombre d'occurences du motifs
+					//System.out.println("0 3 46 67 109"); //liste des positions du motif
+					System.out.println(FiniteStateMachineFinder.getInstance().getOccurences(data, motif));
 				}
 				break;
 			case 3: //Knut-Morris-Pratt
