@@ -31,6 +31,7 @@ public class Main {
 		switch (algo) {
 			case 1: //Rabin-Karp
 				// Format de sortie -> à générer avec votre code
+				RabinKarp karp = new RabinKarp(data, motif);
 				if (fileName == null) {
 					// Afficher la base, le nombre 1er pour le modulo, le hash du motif
 					System.out.println("26 37 18");
@@ -39,11 +40,12 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					System.out.println(RabinKarp.getInstance().getOccurences(data, motif));
+					System.out.println(karp.getOccurences());
 				}
 				break;
 			case 2: //Automate fini
 				// Format de sortie -> à générer avec votre code
+				FiniteStateMachineFinder finiteFinder = new FiniteStateMachineFinder(data, motif);
 				if (fileName == null) {
 					// Afficher le tableau de la fonction de transition
 					// P. ex. pour le motif M = "ababaca"
@@ -61,7 +63,7 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					System.out.println(FiniteStateMachineFinder.getInstance().getOccurences(data, motif));
+					System.out.println(finiteFinder.getOccurences());
 				}
 				break;
 			case 3: //Knut-Morris-Pratt

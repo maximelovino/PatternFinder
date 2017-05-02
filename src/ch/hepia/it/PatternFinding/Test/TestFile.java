@@ -19,9 +19,9 @@ public class TestFile {
 
 		System.out.println(naiveAlgo(text, pattern));
 		System.out.println("====================");
-		System.out.println(RabinKarp.getInstance().getOccurences(text, pattern));
+		System.out.println(new RabinKarp(text, pattern).getOccurences());
 		System.out.println("====================");
-		System.out.println(FiniteStateMachineFinder.getInstance().getOccurences(text, pattern));
+		System.out.println(new FiniteStateMachineFinder(text, pattern).getOccurences());
 	}
 
 	public static List<Integer> naiveAlgo (String text, String pattern) {

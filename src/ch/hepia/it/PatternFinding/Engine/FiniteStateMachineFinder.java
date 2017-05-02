@@ -4,20 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FiniteStateMachineFinder implements PatternFinder {
-	private static FiniteStateMachineFinder instance = new FiniteStateMachineFinder();
+public class FiniteStateMachineFinder extends PatternFinder {
+	private final int[][] transitions;
 
-	private FiniteStateMachineFinder () {
+	public FiniteStateMachineFinder (String text, String pattern) {
+		super(text, pattern);
+		this.transitions = getTransitionTable(pattern);
 	}
 
-	public static FiniteStateMachineFinder getInstance () {
-		return instance;
-	}
 
 	@Override
-	public List<Integer> getOccurences (String text, String pattern) {
+	public List<Integer> getOccurences () {
 		List<Integer> occurences = new ArrayList<>();
-		int[][] transitions = getTransitionTable(pattern);
 
 		int state = 0;
 

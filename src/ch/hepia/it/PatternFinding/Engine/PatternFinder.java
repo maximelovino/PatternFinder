@@ -9,7 +9,15 @@ import java.util.List;
  * @project PatternFinding
  */
 
-public interface PatternFinder {
+public abstract class PatternFinder {
+	protected String text;
+	protected String pattern;
 
-	List<Integer> getOccurences (String text, String pattern);
+
+	protected PatternFinder (String text, String pattern) {
+		this.text = text;
+		this.pattern = pattern;
+	}
+
+	public abstract List<Integer> getOccurences ();
 }
