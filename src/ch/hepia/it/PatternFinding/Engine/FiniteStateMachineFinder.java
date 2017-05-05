@@ -1,15 +1,18 @@
 package ch.hepia.it.PatternFinding.Engine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class FiniteStateMachineFinder extends PatternFinder {
-	private final int[][] transitions;
+	private int[][] transitions;
+	private int finalState;
+	private LinkedList<Character> chars;
+	private Map<Character, Integer> column;
 
 	public FiniteStateMachineFinder (String text, String pattern) {
 		super(text, pattern);
-		this.transitions = getTransitionTable(pattern);
+		chars = new LinkedList<>();
+		column = new HashMap<>();
+		getTransitionTable();
 	}
 
 
@@ -20,10 +23,10 @@ public class FiniteStateMachineFinder extends PatternFinder {
 		int state = 0;
 
 		for (int i = 0; i < text.length(); i++) {
-			state = transitions[state][(int) text.charAt(i)];
-			if (state == (transitions.length - 1)) {
-				state = 0;
-				occurences.add(i - transitions.length + 2);
+			Integer col = column.get(text.charAt(i));
+			state = col == null ? 0 : transitions[state][col];
+			if (state == finalState) {
+				occurences.add(i - pattern.length() + 1);
 			}
 		}
 
@@ -31,57 +34,69 @@ public class FiniteStateMachineFinder extends PatternFinder {
 		return occurences;
 	}
 
-	private int[][] getTransitionTable (String pattern) {
-		int[][] transitions = new int[pattern.length()][128];
-		HashMap<Character, List<Integer>> charOccurences = new HashMap<>();
 
+	private void getTransitionTable () {
+		transitions = new int[pattern.length() + 1][(int) pattern.chars().distinct().count()];
+		finalState = pattern.length();
+		for (int i = 0; i < transitions.length; i++) {
+			Arrays.fill(transitions[i], -1);
+		}
+		int tempColumnCount = 0;
 		for (int i = 0; i < pattern.length(); i++) {
-			//if we see the first letter of the pattern, by default we go to state 1
-			transitions[i][(int) pattern.charAt(0)] = 1;
-
-			Character currentChar = pattern.charAt(i);
-
-			List<Integer> listCurrentChar = charOccurences.get(currentChar);
-
-
-			if (listCurrentChar == null) {
-				listCurrentChar = new ArrayList<>();
-				charOccurences.put(currentChar, listCurrentChar);
+			if (column.putIfAbsent(pattern.charAt(i), tempColumnCount) == null) {
+				chars.add(pattern.charAt(i));
+				tempColumnCount++;
 			}
-			listCurrentChar.add(i);
-			for (Character c : charOccurences.keySet()) {
-				List<Integer> charList = charOccurences.get(c);
-				Integer latestOccurence = null;
-				boolean found = true;
-				if (c != currentChar) {
-					for (int j = charList.size() - 1; j >= 0; j--) {
-						found = true;
-						latestOccurence = charList.get(j);
-						for (int k = 1; k <= Math.min(i, latestOccurence); k++) {
-							if (pattern.charAt(latestOccurence - k) != pattern.charAt(i - k)) {
-								found = false;
-								break;
-							}
-						}
-						if (found) {
-							transitions[i][c] = latestOccurence + 1;
-							break;
-						}
+			transitions[i][column.get(pattern.charAt(i))] = i + 1;
+		}
+
+		for (int i = transitions.length - 1; i >= 0; i--) {
+			String sub = pattern.substring(0, i);
+			for (int j = 0; j < transitions[i].length; j++) {
+				if (transitions[i][j] == -1) {
+					String newPattern = new String(sub).concat(String.valueOf(chars.get(j)));
+					int tempIndex = 1;
+					int tempState = -1;
+					while (tempState == -1 && tempIndex <= newPattern.length() - 1) {
+						tempState = subpatternScrub(newPattern.substring(tempIndex));
+						tempIndex++;
 					}
+					if (tempState != -1) {
+						transitions[i][j] = tempState;
+					}
+
 				}
 			}
-			transitions[i][(int) currentChar] = i + 1;
 		}
-		return transitions;
+
+		for (int i = 0; i < transitions.length; i++) {
+			for (int j = 0; j < transitions[i].length; j++) {
+				if (transitions[i][j] == -1) {
+					transitions[i][j] = 0;
+				}
+			}
+		}
+
+		printStates(transitions);
 	}
 
-	public static void printStates (int[][] transitions) {
+	private int subpatternScrub (String sub) {
+		int state = 0;
+		for (int i = 0; i < sub.length(); i++) {
+			state = transitions[state][column.get(sub.charAt(i))];
+			if (state == -1) {
+				return -1;
+			}
+		}
+		return state;
+	}
+
+
+	public void printStates (int[][] transitions) {
 		for (int i = 0; i < transitions.length; i++) {
 			System.out.print("STATE " + i + "\t\t");
 			for (int j = 0; j < transitions[i].length; j++) {
-				if (transitions[i][j] != 0) {
-					System.out.print(String.valueOf((char) j) + " : " + transitions[i][j] + "\t");
-				}
+				System.out.print(String.valueOf(chars.get(j)) + " : " + transitions[i][j] + "\t");
 			}
 			System.out.println();
 		}
