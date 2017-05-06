@@ -1,6 +1,7 @@
 package ch.hepia.it.PatternFinding.Test;
 
 import ch.hepia.it.PatternFinding.Engine.FiniteStateMachineFinder;
+import ch.hepia.it.PatternFinding.Engine.KMP;
 import ch.hepia.it.PatternFinding.Engine.RabinKarp;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class TestFile {
 		String pattern = "ababaca";
 
 
-
+		KMP kmp = new KMP(text, pattern);
 		System.out.println(naiveAlgo(text, pattern));
 		System.out.println("====================");
 		System.out.println(new RabinKarp(text, pattern).getOccurences());

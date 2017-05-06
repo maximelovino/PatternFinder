@@ -77,7 +77,6 @@ public class FiniteStateMachineFinder extends PatternFinder {
 			}
 		}
 
-		printStates(transitions);
 	}
 
 	private int subpatternScrub (String sub) {

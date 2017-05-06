@@ -5,7 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import ch.hepia.it.PatternFinding.Engine.BoyerMoore;
 import ch.hepia.it.PatternFinding.Engine.FiniteStateMachineFinder;
+import ch.hepia.it.PatternFinding.Engine.KMP;
 import ch.hepia.it.PatternFinding.Engine.RabinKarp;
 import org.junit.jupiter.api.Test;
 
@@ -69,6 +71,50 @@ public class UnitTest {
 
 		FiniteStateMachineFinder machine4 = new FiniteStateMachineFinder(text, pattern4);
 		candidate4 = machine4.getOccurences();
+		assertEquals(answer4, candidate4);
+
+	}
+
+	@Test
+	public void testKMP () {
+		List<Integer> candidate1, candidate2, candidate3, candidate4;
+
+		KMP kmp1 = new KMP(text, pattern1);
+		candidate1 = kmp1.getOccurences();
+		assertEquals(answer1, candidate1);
+
+		KMP kmp2 = new KMP(text, pattern2);
+		candidate2 = kmp2.getOccurences();
+		assertEquals(answer2, candidate2);
+
+		KMP kmp3 = new KMP(text, pattern3);
+		candidate3 = kmp3.getOccurences();
+		assertEquals(answer3, candidate3);
+
+		KMP kmp4 = new KMP(text, pattern4);
+		candidate4 = kmp4.getOccurences();
+		assertEquals(answer4, candidate4);
+
+	}
+
+	@Test
+	public void testBoyerMoore () {
+		List<Integer> candidate1, candidate2, candidate3, candidate4;
+
+		BoyerMoore bm1 = new BoyerMoore(text, pattern1);
+		candidate1 = bm1.getOccurences();
+		assertEquals(answer1, candidate1);
+
+		BoyerMoore bm2 = new BoyerMoore(text, pattern2);
+		candidate2 = bm2.getOccurences();
+		assertEquals(answer2, candidate2);
+
+		BoyerMoore bm3 = new BoyerMoore(text, pattern3);
+		candidate3 = bm3.getOccurences();
+		assertEquals(answer3, candidate3);
+
+		BoyerMoore bm4 = new BoyerMoore(text, pattern4);
+		candidate4 = bm4.getOccurences();
 		assertEquals(answer4, candidate4);
 
 	}
