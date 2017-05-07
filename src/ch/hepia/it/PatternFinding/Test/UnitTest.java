@@ -5,30 +5,27 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import ch.hepia.it.PatternFinding.Engine.BoyerMoore;
-import ch.hepia.it.PatternFinding.Engine.FiniteStateMachineFinder;
-import ch.hepia.it.PatternFinding.Engine.KMP;
-import ch.hepia.it.PatternFinding.Engine.RabinKarp;
+import ch.hepia.it.PatternFinding.Engine.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class UnitTest {
-	String fileName = "tests/data.txt";
-	String text = new String(Files.readAllBytes(Paths.get(fileName)));
-	String pattern1 = "1212";
-	String pattern2 = "wwww";
-	String pattern3 = "bonsbonsbons";
-	String pattern4 = "1111abt1111ab";
-	List<Integer> answer1, answer2, answer3, answer4;
+	private String fileName = "tests/data.txt";
+	private String text = new String(Files.readAllBytes(Paths.get(fileName)));
+	private String pattern1 = "1212";
+	private String pattern2 = "wwww";
+	private String pattern3 = "bonsbonsbons";
+	private String pattern4 = "1111abt1111ab";
+	private List<Integer> answer1, answer2, answer3, answer4;
 
 
 	public UnitTest () throws IOException {
-		answer1 = TestFile.naiveAlgo(text, pattern1);
-		answer2 = TestFile.naiveAlgo(text, pattern2);
-		answer3 = TestFile.naiveAlgo(text, pattern3);
-		answer4 = TestFile.naiveAlgo(text, pattern4);
+		answer1 = new NaiveSearch(text, pattern1).getOccurences();
+		answer2 = new NaiveSearch(text, pattern2).getOccurences();
+		answer3 = new NaiveSearch(text, pattern3).getOccurences();
+		answer4 = new NaiveSearch(text, pattern4).getOccurences();
 	}
 
 	@Test

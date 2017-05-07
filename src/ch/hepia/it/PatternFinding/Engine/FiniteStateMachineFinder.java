@@ -54,7 +54,7 @@ public class FiniteStateMachineFinder extends PatternFinder {
 			String sub = pattern.substring(0, i);
 			for (int j = 0; j < transitions[i].length; j++) {
 				if (transitions[i][j] == -1) {
-					String newPattern = new String(sub).concat(String.valueOf(chars.get(j)));
+					String newPattern = sub.concat(String.valueOf(chars.get(j)));
 					int tempIndex = 1;
 					int tempState = -1;
 					while (tempState == -1 && tempIndex <= newPattern.length() - 1) {
