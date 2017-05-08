@@ -50,8 +50,8 @@ public class KMP extends PatternFinder {
 	}
 
 	private void printPiArray () {
-		for (int i = 0; i < piArray.length; i++) {
-			System.out.print(piArray[i] + "\t");
+		for (int aPiArray : piArray) {
+			System.out.print(aPiArray + "\t");
 		}
 		System.out.println();
 	}

@@ -38,8 +38,8 @@ public class FiniteStateMachineFinder extends PatternFinder {
 	private void getTransitionTable () {
 		transitions = new int[pattern.length() + 1][(int) pattern.chars().distinct().count()];
 		finalState = pattern.length();
-		for (int i = 0; i < transitions.length; i++) {
-			Arrays.fill(transitions[i], -1);
+		for (int[] transition : transitions) {
+			Arrays.fill(transition, -1);
 		}
 		int tempColumnCount = 0;
 		for (int i = 0; i < pattern.length(); i++) {

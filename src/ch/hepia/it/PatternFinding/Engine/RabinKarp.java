@@ -18,23 +18,35 @@ public class RabinKarp extends PatternFinder {
 	private final int t;
 	private final int q;
 	private final int p;
-	private final int b;
+	private final int base;
 	private int ti;
 
 	/**
-	 * Constructor for the Rabin Karp algorithm
+	 * Constructor for Rabin Karp with custom base
+	 *
+	 * @param text    The text to search through
+	 * @param pattern The pattern to find
+	 * @param base    The base
+	 */
+	public RabinKarp (String text, String pattern, int base) {
+		//TODO check when text is empty
+		super(text, pattern);
+		this.base = base;
+		this.m = pattern.length();
+		this.t = text.equals("") ? 1 : text.length();
+		this.q = text.equals("") ? findCoprimeTo(m) : findCoprimeTo(m, t);
+		this.p = hash(pattern);
+		this.ti = text.equals("") ? 0 : hash(text);
+	}
+
+	/**
+	 * Constructor for the Rabin Karp algorithm that will use the default base (128)
 	 *
 	 * @param text    The text to search through
 	 * @param pattern The pattern to find
 	 */
 	public RabinKarp (String text, String pattern) {
-		super(text, pattern);
-		this.m = pattern.length();
-		this.t = text.length();
-		this.q = findCoprimeTo(m, t);
-		this.p = hash(pattern);
-		this.ti = hash(text);
-		this.b = DEFAULT_B;
+		this(text, pattern, DEFAULT_B);
 	}
 
 	/**
@@ -47,7 +59,7 @@ public class RabinKarp extends PatternFinder {
 		List<Integer> occurences = new ArrayList<>();
 		for (int s = 0; s <= t - m; s++) {
 			if (s != 0) {
-				ti = b * mod(ti - BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - 1), BigInteger.valueOf(q)).intValue() * text.charAt(s - 1), q) + text.charAt(s + m - 1);
+				ti = base * mod(ti - BigInteger.valueOf(base).modPow(BigInteger.valueOf(m - 1), BigInteger.valueOf(q)).intValue() * text.charAt(s - 1), q) + text.charAt(s + m - 1);
 				ti = mod(ti, q);
 			}
 			if (mod(p, q) == mod(ti, q)) {
@@ -68,7 +80,7 @@ public class RabinKarp extends PatternFinder {
 	private int hash (String text) {
 		int hash = 0;
 		for (int i = 0; i < m; i++) {
-			hash += mod(BigInteger.valueOf(b).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * text.charAt(i), q);
+			hash += mod(BigInteger.valueOf(base).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * text.charAt(i), q);
 			hash = mod(hash, q);
 		}
 		return hash;
@@ -89,15 +101,31 @@ public class RabinKarp extends PatternFinder {
 		return temp;
 	}
 
+	public int findCoprimeTo (int a) {
+		int temp = rnd.nextInt(a);
+		while (temp == 0 || gcd(temp, a) != 1)
+			temp = rnd.nextInt(a);
+		return temp;
+	}
+
+	/**
+	 * @return Q the coprime to m and t
+	 */
 	public int getQ () {
 		return q;
 	}
 
+	/**
+	 * @return P the hash of the pattern
+	 */
 	public int getP () {
 		return p;
 	}
 
-	public int getB () {
-		return b;
+	/**
+	 * @return The base
+	 */
+	public int getBase () {
+		return base;
 	}
 }

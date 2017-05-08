@@ -36,7 +36,7 @@ public class Main {
 				RabinKarp karp = new RabinKarp(data, motif);
 				if (fileName == null) {
 					// Afficher la base, le nombre 1er pour le modulo, le hash du motif
-					System.out.println(karp.getB() + " " + karp.getQ() + " " + karp.getP());
+					System.out.println(karp.getBase() + " " + karp.getQ() + " " + karp.getP());
 				} else {
 					// Afficher le nombre d'occurences du motif
 					// suivi de la liste des positions de sa 1ere lettre dans le texte

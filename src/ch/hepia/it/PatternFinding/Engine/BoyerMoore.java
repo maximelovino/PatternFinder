@@ -46,11 +46,11 @@ public class BoyerMoore extends PatternFinder {
 
 	private void makeTab2 () {
 		tab2 = new int[pattern.length()];
-		for (int i = pattern.length() - 1; i >= 0; i--) {
-			String sub = i == 0 ? pattern.substring(1) : pattern.substring(i);
-			Character toExclude = i == 0 ? pattern.charAt(0) : pattern.charAt(i - 1);
+		for (int i = pattern.length() - 1; i >= 1; i--) {
+			String sub = pattern.substring(i);
+			Character toExclude = pattern.charAt(i - 1);
 			int tempLast = pattern.lastIndexOf(sub);
-			while (tempLast > 0 && toExclude != null && pattern.charAt(tempLast - 1) == toExclude) {
+			while (tempLast > 0 && pattern.charAt(tempLast - 1) == toExclude) {
 				tempLast = pattern.lastIndexOf(sub, tempLast - 1);
 			}
 			boolean found = false;
@@ -70,5 +70,7 @@ public class BoyerMoore extends PatternFinder {
 				tab2[pattern.length() - i - 1] = pattern.length() - tempLast - sub.length();
 			}
 		}
+		//last one is always same as second to last
+		tab2[pattern.length() - 1] = tab2[pattern.length() - 2];
 	}
 }
