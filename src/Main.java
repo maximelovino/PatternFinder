@@ -1,4 +1,6 @@
+import ch.hepia.it.PatternFinding.Engine.BoyerMoore;
 import ch.hepia.it.PatternFinding.Engine.FiniteStateMachineFinder;
+import ch.hepia.it.PatternFinding.Engine.KMP;
 import ch.hepia.it.PatternFinding.Engine.RabinKarp;
 
 import java.io.*;
@@ -34,13 +36,15 @@ public class Main {
 				RabinKarp karp = new RabinKarp(data, motif);
 				if (fileName == null) {
 					// Afficher la base, le nombre 1er pour le modulo, le hash du motif
-					System.out.println("26 37 18");
+					System.out.println(karp.getB() + " " + karp.getQ() + " " + karp.getP());
 				} else {
 					// Afficher le nombre d'occurences du motif
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					System.out.println(karp.getOccurences());
+					List<Integer> results = karp.getOccurences();
+					System.out.println(results.size());
+					System.out.println(results);
 				}
 				break;
 			case 2: //Automate fini
@@ -63,11 +67,14 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					System.out.println(finiteFinder.getOccurences());
+					List<Integer> results = finiteFinder.getOccurences();
+					System.out.println(results.size());
+					System.out.println(results);
 				}
 				break;
 			case 3: //Knut-Morris-Pratt
 				// Format de sortie -> à générer avec votre code
+				KMP kmp = new KMP(data, motif);
 				if (fileName == null) {
 					//Afficher le tableau des prefixes
 					// P. ex. pour le motif M = "ababaca"
@@ -77,12 +84,16 @@ public class Main {
 				} else {
 					// Afficher le nombre d'occurences du motif
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
-					System.out.println("13"); // nombre d'occurences du motifs
-					System.out.println("0 3 46 67 109"); //liste des positions du motif
+					//System.out.println("13"); // nombre d'occurences du motifs
+					//System.out.println("0 3 46 67 109"); //liste des positions du motif
+					List<Integer> results = kmp.getOccurences();
+					System.out.println(results.size());
+					System.out.println(results);
 				}
 				break;
 			case 4: //Boyer-Moore
 				// Format de sortie -> à générer avec votre code
+				BoyerMoore bm = new BoyerMoore(data, motif);
 				if (fileName == null) {
 					//Afficher les deux tableaux des decalages
 					// P. ex. pour le motif M = "anpanman"
@@ -97,8 +108,11 @@ public class Main {
 				} else {
 					// Afficher le nombre d'occurences du motif
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
-					System.out.println("13"); // nombre d'occurences du motifs
-					System.out.println("0 3 46 67 109"); //liste des positions du motif
+					//System.out.println("13"); // nombre d'occurences du motifs
+					//System.out.println("0 3 46 67 109"); //liste des positions du motif
+					List<Integer> results = bm.getOccurences();
+					System.out.println(results.size());
+					System.out.println(results);
 				}
 				break;
 			default:
