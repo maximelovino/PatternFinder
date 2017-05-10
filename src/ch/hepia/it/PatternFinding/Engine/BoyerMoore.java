@@ -1,5 +1,7 @@
 package ch.hepia.it.PatternFinding.Engine;
 
+import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +17,8 @@ public class BoyerMoore extends PatternFinder {
 	}
 
 	@Override
-	public List<Integer> getOccurences () {
-		List<Integer> occurences = new ArrayList<>();
+	public PatternOccurences getOccurences () {
+		PatternOccurences occurences = new PatternOccurences();
 		int s = pattern.length();
 		while (s <= text.length()) {
 			int j = pattern.length();

@@ -1,3 +1,4 @@
+import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
 import ch.hepia.it.PatternFinding.Engine.*;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ public class UnitTest {
 	private String pattern5 = "abt1111a";
 	private String pattern6 = "bon";
 	private String pattern7 = "bons";
-	private List<Integer> answer1, answer2, answer3, answer4, answer5, answer6, answer7;
+	private PatternOccurences answer1, answer2, answer3, answer4, answer5, answer6, answer7;
 
 
 	public UnitTest () throws IOException {
@@ -34,7 +35,7 @@ public class UnitTest {
 
 	@Test
 	public void testKarp () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
+		PatternOccurences candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		RabinKarp rk1 = new RabinKarp(text, pattern1);
 		candidate1 = rk1.getOccurences();
@@ -68,7 +69,7 @@ public class UnitTest {
 
 	@Test
 	public void testFinite () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
+		PatternOccurences candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		FiniteStateMachineFinder machine1 = new FiniteStateMachineFinder(text, pattern1);
 		candidate1 = machine1.getOccurences();
@@ -101,7 +102,7 @@ public class UnitTest {
 
 	@Test
 	public void testKMP () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
+		PatternOccurences candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		KMP kmp1 = new KMP(text, pattern1);
 		candidate1 = kmp1.getOccurences();
@@ -134,7 +135,7 @@ public class UnitTest {
 
 	@Test
 	public void testBoyerMoore () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
+		PatternOccurences candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		BoyerMoore bm1 = new BoyerMoore(text, pattern1);
 		candidate1 = bm1.getOccurences();

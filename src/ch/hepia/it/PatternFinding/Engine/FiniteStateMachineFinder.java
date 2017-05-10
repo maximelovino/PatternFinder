@@ -1,5 +1,7 @@
 package ch.hepia.it.PatternFinding.Engine;
 
+import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
+
 import java.util.*;
 
 public class FiniteStateMachineFinder extends PatternFinder {
@@ -17,8 +19,8 @@ public class FiniteStateMachineFinder extends PatternFinder {
 
 
 	@Override
-	public List<Integer> getOccurences () {
-		List<Integer> occurences = new ArrayList<>();
+	public PatternOccurences getOccurences () {
+		PatternOccurences occurences = new PatternOccurences();
 
 		int state = 0;
 

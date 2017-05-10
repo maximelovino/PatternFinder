@@ -1,3 +1,4 @@
+import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
 import ch.hepia.it.PatternFinding.Engine.BoyerMoore;
 import ch.hepia.it.PatternFinding.Engine.FiniteStateMachineFinder;
 import ch.hepia.it.PatternFinding.Engine.KMP;
@@ -28,7 +29,7 @@ public class Main {
 				System.err.println("usage: java Main <motif> <algo> (<fichier_texte>)");
 				System.exit(1);
 		}
-
+		//TODO correct display of lists to just list indices and not [a,b,c,...]
 		// Rien d'autre ne doit etre affiche que ce qui est indique ci-dessous
 		switch (algo) {
 			case 1: //Rabin-Karp
@@ -42,8 +43,7 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					List<Integer> results = karp.getOccurences();
-					System.out.println(results.size());
+					PatternOccurences results = karp.getOccurences();
 					System.out.println(results);
 				}
 				break;
@@ -67,8 +67,7 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					List<Integer> results = finiteFinder.getOccurences();
-					System.out.println(results.size());
+					PatternOccurences results = finiteFinder.getOccurences();
 					System.out.println(results);
 				}
 				break;
@@ -86,8 +85,7 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					List<Integer> results = kmp.getOccurences();
-					System.out.println(results.size());
+					PatternOccurences results = kmp.getOccurences();
 					System.out.println(results);
 				}
 				break;
@@ -110,8 +108,7 @@ public class Main {
 					// suivi de la liste des positions de sa 1ere lettre dans le texte
 					//System.out.println("13"); // nombre d'occurences du motifs
 					//System.out.println("0 3 46 67 109"); //liste des positions du motif
-					List<Integer> results = bm.getOccurences();
-					System.out.println(results.size());
+					PatternOccurences results = bm.getOccurences();
 					System.out.println(results);
 				}
 				break;

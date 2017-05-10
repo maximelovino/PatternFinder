@@ -1,5 +1,7 @@
 package ch.hepia.it.PatternFinding.Engine;
 
+import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +14,8 @@ public class KMP extends PatternFinder {
 	}
 
 	@Override
-	public List<Integer> getOccurences () {
-		List<Integer> ocurrences = new ArrayList<>();
+	public PatternOccurences getOccurences () {
+		PatternOccurences ocurrences = new PatternOccurences();
 
 		int q = -1;
 		for (int i = 0; i < text.length(); i++) {

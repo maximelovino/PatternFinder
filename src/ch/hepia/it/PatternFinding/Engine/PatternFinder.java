@@ -1,5 +1,7 @@
 package ch.hepia.it.PatternFinding.Engine;
 
+import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
+
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public abstract class PatternFinder {
 	/**
 	 * Method to find the occurences of the pattern in the text
 	 *
-	 * @return A list of the indices of the pattern (starting at 0)
+	 * @return A PatternOccurences instance of the indices of the pattern (starting at 0)
 	 */
-	public abstract List<Integer> getOccurences ();
+	public abstract PatternOccurences getOccurences ();
 }
