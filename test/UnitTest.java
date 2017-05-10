@@ -16,7 +16,10 @@ public class UnitTest {
 	private String pattern2 = "wwww";
 	private String pattern3 = "bonsbonsbons";
 	private String pattern4 = "1111abt1111ab";
-	private List<Integer> answer1, answer2, answer3, answer4;
+	private String pattern5 = "abt1111a";
+	private String pattern6 = "bon";
+	private String pattern7 = "bons";
+	private List<Integer> answer1, answer2, answer3, answer4, answer5, answer6, answer7;
 
 
 	public UnitTest () throws IOException {
@@ -24,11 +27,14 @@ public class UnitTest {
 		answer2 = new NaiveSearch(text, pattern2).getOccurences();
 		answer3 = new NaiveSearch(text, pattern3).getOccurences();
 		answer4 = new NaiveSearch(text, pattern4).getOccurences();
+		answer5 = new NaiveSearch(text, pattern5).getOccurences();
+		answer6 = new NaiveSearch(text, pattern6).getOccurences();
+		answer7 = new NaiveSearch(text, pattern7).getOccurences();
 	}
 
 	@Test
 	public void testKarp () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4;
+		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		RabinKarp rk1 = new RabinKarp(text, pattern1);
 		candidate1 = rk1.getOccurences();
@@ -46,11 +52,23 @@ public class UnitTest {
 		candidate4 = rk4.getOccurences();
 		assertEquals(answer4, candidate4);
 
+		RabinKarp rk5 = new RabinKarp(text, pattern5);
+		candidate5 = rk5.getOccurences();
+		assertEquals(answer5, candidate5);
+
+		RabinKarp rk6 = new RabinKarp(text, pattern6);
+		candidate6 = rk6.getOccurences();
+		assertEquals(answer6, candidate6);
+
+		RabinKarp rk7 = new RabinKarp(text, pattern7);
+		candidate7 = rk7.getOccurences();
+		assertEquals(answer7, candidate7);
+
 	}
 
 	@Test
 	public void testFinite () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4;
+		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		FiniteStateMachineFinder machine1 = new FiniteStateMachineFinder(text, pattern1);
 		candidate1 = machine1.getOccurences();
@@ -68,11 +86,22 @@ public class UnitTest {
 		candidate4 = machine4.getOccurences();
 		assertEquals(answer4, candidate4);
 
+		FiniteStateMachineFinder machine5 = new FiniteStateMachineFinder(text, pattern5);
+		candidate5 = machine5.getOccurences();
+		assertEquals(answer5, candidate5);
+
+		FiniteStateMachineFinder machine6 = new FiniteStateMachineFinder(text, pattern6);
+		candidate6 = machine6.getOccurences();
+		assertEquals(answer6, candidate6);
+
+		FiniteStateMachineFinder machine7 = new FiniteStateMachineFinder(text, pattern7);
+		candidate7 = machine7.getOccurences();
+		assertEquals(answer7, candidate7);
 	}
 
 	@Test
 	public void testKMP () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4;
+		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		KMP kmp1 = new KMP(text, pattern1);
 		candidate1 = kmp1.getOccurences();
@@ -90,11 +119,22 @@ public class UnitTest {
 		candidate4 = kmp4.getOccurences();
 		assertEquals(answer4, candidate4);
 
+		KMP kmp5 = new KMP(text, pattern5);
+		candidate5 = kmp5.getOccurences();
+		assertEquals(answer5, candidate5);
+
+		KMP kmp6 = new KMP(text, pattern6);
+		candidate6 = kmp6.getOccurences();
+		assertEquals(answer6, candidate6);
+
+		KMP kmp7 = new KMP(text, pattern7);
+		candidate7 = kmp7.getOccurences();
+		assertEquals(answer7, candidate7);
 	}
 
 	@Test
 	public void testBoyerMoore () {
-		List<Integer> candidate1, candidate2, candidate3, candidate4;
+		List<Integer> candidate1, candidate2, candidate3, candidate4, candidate5, candidate6, candidate7;
 
 		BoyerMoore bm1 = new BoyerMoore(text, pattern1);
 		candidate1 = bm1.getOccurences();
@@ -112,5 +152,16 @@ public class UnitTest {
 		candidate4 = bm4.getOccurences();
 		assertEquals(answer4, candidate4);
 
+		BoyerMoore bm5 = new BoyerMoore(text, pattern5);
+		candidate5 = bm5.getOccurences();
+		assertEquals(answer5, candidate5);
+
+		BoyerMoore bm6 = new BoyerMoore(text, pattern6);
+		candidate6 = bm6.getOccurences();
+		assertEquals(answer6, candidate6);
+
+		BoyerMoore bm7 = new BoyerMoore(text, pattern7);
+		candidate7 = bm7.getOccurences();
+		assertEquals(answer7, candidate7);
 	}
 }

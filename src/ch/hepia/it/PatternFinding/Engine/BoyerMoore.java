@@ -53,19 +53,11 @@ public class BoyerMoore extends PatternFinder {
 			while (tempLast > 0 && pattern.charAt(tempLast - 1) == toExclude) {
 				tempLast = pattern.lastIndexOf(sub, tempLast - 1);
 			}
-			boolean found = false;
 			if (tempLast == -1) {
 				do {
-					if (sub.length() > 1) {
-						sub = sub.substring(1);
-					} else {
-						tab2[pattern.length() - i - 1] = pattern.length();
-						found = true;
-						break;
-					}
+					sub = sub.substring(1);
 				} while (!sub.equals(pattern.substring(0, sub.length())));
-				if (!found)
-					tab2[pattern.length() - i - 1] = pattern.length() - sub.length();
+				tab2[pattern.length() - i - 1] = pattern.length() - sub.length();
 			} else {
 				tab2[pattern.length() - i - 1] = pattern.length() - tempLast - sub.length();
 			}
