@@ -2,8 +2,6 @@ package ch.hepia.it.PatternFinding.Engine;
 
 import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
 
-import java.util.List;
-
 /**
  * Abstract class that represents the structure of a PatternFinder class
  */

@@ -8,48 +8,27 @@ import java.util.Random;
 public abstract class Maths {
 	private static Random rnd = new Random();
 
+	/**
+	 * Function to calculate the real mod (not the Java remainder)
+	 *
+	 * @param x A number
+	 * @param y A second number
+	 * @return x mod y
+	 */
 	public static long mod (long x, long y) {
 		long result = x % y;
 		return result < 0 ? result + y : result;
 	}
 
+	/**
+	 * Function to calculate the real mod (not the Java remainder)
+	 *
+	 * @param x A number
+	 * @param y A second number
+	 * @return x mod y
+	 */
 	public static int mod (int x, int y) {
 		int result = x % y;
 		return result < 0 ? result + y : result;
-	}
-
-	public static int gcd (int a, int b) {
-		int t;
-		while (b != 0) {
-			t = b;
-			b = a % b;
-			a = t;
-		}
-		return a;
-	}
-
-	//TODO CHECK IF WE CAN FUSION THESE TWO
-
-
-	/**
-	 * Method to find a coprime to two numbers
-	 *
-	 * @param a The first number
-	 * @param b The second number
-	 * @return A coprime to a and b
-	 */
-	public static int findCoprimeTo (int a, int b) {
-		int temp = rnd.nextInt(Integer.max(a, b));
-		while (temp == 0 || (gcd(temp, a) != 1 || gcd(temp, b) != 1)) {
-			temp = rnd.nextInt(Integer.max(a, b));
-		}
-		return temp;
-	}
-
-	public static int findCoprimeTo (int a) {
-		int temp = rnd.nextInt(a);
-		while (temp == 0 || gcd(temp, a) != 1)
-			temp = rnd.nextInt(a);
-		return temp;
 	}
 }

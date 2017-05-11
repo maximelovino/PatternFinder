@@ -2,17 +2,28 @@ package ch.hepia.it.PatternFinding.Engine;
 
 import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Implementation of Knut-Moris-Pratt algorithm
+ */
 public class KMP extends PatternFinder {
 	private int[] piArray;
 
+	/**
+	 * Constructor for KMP
+	 *
+	 * @param text    The text to search through
+	 * @param pattern The pattern to find
+	 */
 	public KMP (String text, String pattern) {
 		super(text, pattern);
 		buildPiArray();
 	}
 
+	/**
+	 * Method to find the occurences of the pattern in the text
+	 *
+	 * @return A PatternOccurences instance of the indices of the pattern (starting at 0)
+	 */
 	@Override
 	public PatternOccurences getOccurences () {
 		PatternOccurences ocurrences = new PatternOccurences();
@@ -33,6 +44,9 @@ public class KMP extends PatternFinder {
 		return ocurrences;
 	}
 
+	/**
+	 * Function to build the array of PIs which is the pre-treatment for KMP
+	 */
 	private void buildPiArray () {
 		piArray = new int[pattern.length()];
 		for (int i = 0; i < pattern.length(); i++) {
@@ -47,13 +61,22 @@ public class KMP extends PatternFinder {
 		}
 	}
 
+	/**
+	 * Function to check if a string is suffix of another
+	 * @param suffix    The suffix to tests
+	 * @param text    The text to test with
+	 * @return If suffix is a suffix of text
+	 */
 	private boolean isSuffix (String suffix, String text) {
 		return text.substring(text.length() - suffix.length(), text.length()).equals(suffix);
 	}
 
-	private void printPiArray () {
+	/**
+	 * Method to display the array of PIs
+	 */
+	public void printPiArray () {
 		for (int aPiArray : piArray) {
-			System.out.print(aPiArray + "\t");
+			System.out.print(aPiArray + " ");
 		}
 		System.out.println();
 	}

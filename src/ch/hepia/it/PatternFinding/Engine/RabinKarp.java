@@ -3,11 +3,7 @@ package ch.hepia.it.PatternFinding.Engine;
 import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-import static ch.hepia.it.PatternFinding.Utils.Maths.findCoprimeTo;
 import static ch.hepia.it.PatternFinding.Utils.Maths.mod;
 
 /**
@@ -35,7 +31,7 @@ public class RabinKarp extends PatternFinder {
 		this.base = base;
 		this.m = pattern.length();
 		this.t = text.equals("") ? 1 : text.length();
-		this.q = text.equals("") ? findCoprimeTo(m) : findCoprimeTo(m, t);
+		this.q = BigInteger.valueOf(Integer.max(m, t)).nextProbablePrime().intValue();
 		this.p = hash(pattern);
 		this.ti = text.equals("") ? 0 : hash(text);
 	}
@@ -58,12 +54,14 @@ public class RabinKarp extends PatternFinder {
 	@Override
 	public PatternOccurences getOccurences () {
 		PatternOccurences occurences = new PatternOccurences();
+		int i = 0;
 		for (int s = 0; s <= t - m; s++) {
 			if (s != 0) {
 				ti = base * mod(ti - BigInteger.valueOf(base).modPow(BigInteger.valueOf(m - 1), BigInteger.valueOf(q)).intValue() * text.charAt(s - 1), q) + text.charAt(s + m - 1);
 				ti = mod(ti, q);
 			}
 			if (mod(p, q) == mod(ti, q)) {
+				i++;
 				if (text.substring(s, s + m).equals(pattern)) {
 					occurences.add(s);
 				}
@@ -81,7 +79,8 @@ public class RabinKarp extends PatternFinder {
 	private int hash (String text) {
 		int hash = 0;
 		for (int i = 0; i < m; i++) {
-			hash += mod(BigInteger.valueOf(base).modPow(BigInteger.valueOf(m - i - 1), BigInteger.valueOf(q)).intValue() * text.charAt(i), q);
+			hash *= base;
+			hash += text.charAt(i);
 			hash = mod(hash, q);
 		}
 		return hash;

@@ -2,14 +2,26 @@ package ch.hepia.it.PatternFinding.Engine;
 
 import ch.hepia.it.PatternFinding.DataStructures.PatternOccurences;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
+/**
+ * Implementation of a search using a Finite State Machine
+ */
 public class FiniteStateMachineFinder extends PatternFinder {
 	private int[][] transitions;
 	private int finalState;
 	private LinkedList<Character> chars;
 	private Map<Character, Integer> column;
 
+	/**
+	 * Constructor for Finite State Machine search
+	 *
+	 * @param text    The text to search through
+	 * @param pattern The pattern to find
+	 */
 	public FiniteStateMachineFinder (String text, String pattern) {
 		super(text, pattern);
 		chars = new LinkedList<>();
@@ -17,7 +29,11 @@ public class FiniteStateMachineFinder extends PatternFinder {
 		getTransitionTable();
 	}
 
-
+	/**
+	 * Method to find the occurences of the pattern in the text
+	 *
+	 * @return A PatternOccurences instance of the indices of the pattern (starting at 0)
+	 */
 	@Override
 	public PatternOccurences getOccurences () {
 		PatternOccurences occurences = new PatternOccurences();
@@ -37,6 +53,9 @@ public class FiniteStateMachineFinder extends PatternFinder {
 	}
 
 
+	/**
+	 * Function to prepare the transition table
+	 */
 	private void getTransitionTable () {
 		transitions = new int[pattern.length() + 1][(int) pattern.chars().distinct().count()];
 		finalState = pattern.length();
@@ -81,6 +100,12 @@ public class FiniteStateMachineFinder extends PatternFinder {
 
 	}
 
+	/**
+	 * Method to try a String through the state table
+	 *
+	 * @param sub The String to try
+	 * @return The state at which the pattern ended, or -1 if it broke before the end
+	 */
 	private int subpatternScrub (String sub) {
 		int state = 0;
 		for (int i = 0; i < sub.length(); i++) {
@@ -92,12 +117,13 @@ public class FiniteStateMachineFinder extends PatternFinder {
 		return state;
 	}
 
-
-	public void printStates (int[][] transitions) {
+	/**
+	 * Method to display the state table
+	 */
+	public void printStates () {
 		for (int i = 0; i < transitions.length; i++) {
-			System.out.print("STATE " + i + "\t\t");
 			for (int j = 0; j < transitions[i].length; j++) {
-				System.out.print(String.valueOf(chars.get(j)) + " : " + transitions[i][j] + "\t");
+				System.out.print(transitions[i][j] + "\t");
 			}
 			System.out.println();
 		}
