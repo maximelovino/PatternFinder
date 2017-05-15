@@ -1,12 +1,9 @@
 package ch.hepia.it.PatternFinding.Utils;
 
-import java.util.Random;
-
 /**
  * Abstract class containing some maths static function needed by our program
  */
 public abstract class Maths {
-	private static Random rnd = new Random();
 
 	/**
 	 * Function to calculate the real mod (not the Java remainder)

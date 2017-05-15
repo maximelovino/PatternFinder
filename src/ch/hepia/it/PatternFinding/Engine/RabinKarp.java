@@ -26,7 +26,6 @@ public class RabinKarp extends PatternFinder {
 	 * @param base    The base
 	 */
 	public RabinKarp (String text, String pattern, int base) {
-		//TODO check when text is empty
 		super(text, pattern);
 		this.base = base;
 		this.m = pattern.length();
